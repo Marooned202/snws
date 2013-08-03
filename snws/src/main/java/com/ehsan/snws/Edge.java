@@ -5,10 +5,9 @@ public class Edge implements Comparable<Edge> {
     public Node from, to;
     public int weight;
     
-    public Edge(final Node argFrom, final Node argTo, final int argWeight){
+    public Edge(final Node argFrom, final Node argTo){
         from = argFrom;
         to = argTo;
-        weight = argWeight;
     }
     
     public int compareTo(final Edge argEdge){

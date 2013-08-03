@@ -11,8 +11,8 @@ public class UserWebServiceLink extends Edge{
 	public double fLevel;
 	public double satis;
 	
-	public UserWebServiceLink(Node argFrom, Node argTo, int argWeight) {
-		super(argFrom, argTo, argWeight);
+	public UserWebServiceLink(Node argFrom, Node argTo) {
+		super(argFrom, argTo);
 	}
 	
 	@Override

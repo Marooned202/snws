@@ -10,8 +10,14 @@ public class UserUserLink extends Edge{
 	public float atr;
 	public float fLevel;
 	
-	public UserUserLink(Node argFrom, Node argTo, int argWeight) {
-		super(argFrom, argTo, argWeight);
+	public UserUserLink(Node argFrom, Node argTo) {
+		super(argFrom, argTo);
+	}
+	
+	@Override
+	public String toString () {
+		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dtr: " + dtr + ", atr: " + atr + ", fLevel: " + fLevel;
+		return str;
 	}
 
 }

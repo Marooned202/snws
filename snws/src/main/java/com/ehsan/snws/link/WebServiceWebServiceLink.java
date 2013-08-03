@@ -9,8 +9,8 @@ public class WebServiceWebServiceLink extends Edge{
 	public double dc;
 	public double ds;
 	
-	public WebServiceWebServiceLink(Node argFrom, Node argTo, int argWeight) {
-		super(argFrom, argTo, argWeight);
+	public WebServiceWebServiceLink(Node argFrom, Node argTo) {
+		super(argFrom, argTo);
 	}
 	
 	@Override
