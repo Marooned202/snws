@@ -8,8 +8,7 @@ public class WebServiceUserLink extends Edge{
 
 	public double dtr;
 	public double itr;
-	public double fLevel;
-	public double satis;
+
 	
 	public WebServiceUserLink(Node argFrom, Node argTo) {
 		super(argFrom, argTo);
@@ -17,7 +16,7 @@ public class WebServiceUserLink extends Edge{
 	
 	@Override
 	public String toString () {
-		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dtr: " + dtr + ", itr: " + itr + ", fLevel: " + fLevel + ", satis: " + satis;
+		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dtr: " + dtr + ", itr: " + itr;
 		return str;
 	}
 

@@ -6,9 +6,8 @@ import com.ehsan.snws.User;
 
 public class UserUserLink extends Edge{
 
-	public float dtr;
-	public float atr;
-	public float fLevel;
+
+	public int useriWsUserj;
 	
 	public UserUserLink(Node argFrom, Node argTo) {
 		super(argFrom, argTo);
@@ -16,7 +15,7 @@ public class UserUserLink extends Edge{
 	
 	@Override
 	public String toString () {
-		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dtr: " + dtr + ", atr: " + atr + ", fLevel: " + fLevel;
+		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ",useriWsUserj:"+ useriWsUserj ;
 		return str;
 	}
 

@@ -6,6 +6,7 @@ public class User extends Node {
 	public double reqSuccessability;
 	
 	public int interactionCount;
+	public int wsEdgeCount;
 	
 	public User(int argName) {
 		super(argName);
@@ -16,7 +17,7 @@ public class User extends Node {
 	
 	@Override
 	public String toString () {
-		String str = "Id: " + id + ", reqResponsetime: " + reqResponsetime + ", reqSuccessability: " + reqSuccessability + ", interactionCount: " + interactionCount;
+		String str = "Id: " + id + ", reqResponsetime: " + reqResponsetime + ", reqSuccessability: " + reqSuccessability + ", interactionCount: " + interactionCount + ", wsEdgeCount " + wsEdgeCount ;
 		return str;
 	}
 	
