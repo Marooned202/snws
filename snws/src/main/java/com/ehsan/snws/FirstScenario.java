@@ -18,6 +18,7 @@ public class FirstScenario implements Scenario {
 				
 		//network.addEdge(source, target, weight);
 		
+		
 		network.print();
 		
 	}
@@ -50,6 +51,8 @@ public class FirstScenario implements Scenario {
 				UserWebServiceLink uwcLink = new UserWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
 				network.addEdge(uwcLink);
 			}
+			
+			
 					
 		}
 		
