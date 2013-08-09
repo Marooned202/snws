@@ -9,6 +9,10 @@ public class WebServiceWebServiceLink extends Edge{
 	public double dc;
 	public double ds;
 	
+	public int wsiCompWsj;
+	public int wsiSubWsj;
+	public int wsjReqSubWsi;
+	
 	public WebServiceWebServiceLink(Node argFrom, Node argTo) {
 		super(argFrom, argTo);
 	}
