@@ -1,6 +1,5 @@
 package com.ehsan.snws;
 
-import java.util.List;
 import java.util.Random;
 
 import com.ehsan.snws.link.UserUserLink;
