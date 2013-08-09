@@ -49,12 +49,22 @@ public class FirstScenario implements Scenario {
 				List<Integer> servicesNeeded = getRandomServicesNeeded();						
 
 				String tmp = "";
-				for (Integer ser : servicesNeeded) {
-					tmp = tmp + ", " + ser;
+				for (int service : servicesNeeded) {
+					tmp = tmp + ", " + service;
 				}
 
 				System.out.printf("User %d is looking for services %s\n", user.id, tmp);
 				output.printf("User %d is looking for services %s\n", user.id, tmp);
+				
+				if (servicesNeeded.size() == 1) {
+					performSingleService (servicesNeeded.get(0));
+				} else {
+					performCompositeService (servicesNeeded);
+				}
+				
+				for (int service: servicesNeeded) {
+					
+				}
 
 			}
 
@@ -62,6 +72,16 @@ public class FirstScenario implements Scenario {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
+	}
+
+	private void performCompositeService(List<Integer> servicesNeeded) {
+		
+		
+	}
+
+	private void performSingleService(Integer integer) {
+		
+		
 	}
 
 	private List<Integer> getRandomServicesNeeded() {
