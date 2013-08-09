@@ -10,6 +10,8 @@ public class FirstScenario implements Scenario {
 	
 	Graph network = new Graph();
 	
+	public final static int INTERATION_NUM = 100;
+	
 	@Override
 	public void run() {
 		
@@ -19,6 +21,14 @@ public class FirstScenario implements Scenario {
 		//network.addEdge(source, target, weight);
 		
 		network.print();
+		
+		
+		for (int i = 0; i < INTERATION_NUM; i++) {
+			
+			
+			
+		}
+		
 		
 	}
 	
@@ -35,6 +45,7 @@ public class FirstScenario implements Scenario {
 			WebService webService = new WebService(Util.serial++, rnd.nextInt(2));	
 			network.addNode(webService);
 		}		
+		
 	}
 	
 	public void initializeConnections() {

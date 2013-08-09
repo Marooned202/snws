@@ -104,6 +104,14 @@ public class Graph {
 		}
 		return wsList;
 	}
+	
+	public int getWebServicesCount () {
+		return getAllWebServices().size();
+	}
+	
+	public int getUsersCount () {
+		return getAllUsers().size();
+	}
 
 	public void print () {
 		System.out.println("Users: ");
