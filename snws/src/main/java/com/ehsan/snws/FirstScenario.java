@@ -57,9 +57,9 @@ public class FirstScenario implements Scenario {
 				output.printf("User %d is looking for services %s\n", user.id, tmp);
 				
 				if (servicesNeeded.size() == 1) {
-					performSingleService (servicesNeeded.get(0));
+					performSingleService (servicesNeeded.get(0), user);
 				} else {
-					performCompositeService (servicesNeeded);
+					performCompositeService (servicesNeeded, user);
 				}
 				
 				for (int service: servicesNeeded) {
@@ -74,12 +74,12 @@ public class FirstScenario implements Scenario {
 		}  
 	}
 
-	private void performCompositeService(List<Integer> servicesNeeded) {
+	private void performCompositeService(List<Integer> servicesNeeded, User user) {
 		
 		
 	}
 
-	private void performSingleService(Integer integer) {
+	private void performSingleService(Integer integer, User user) {
 		
 		
 	}
