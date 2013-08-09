@@ -20,11 +20,10 @@ public class FirstScenario implements Scenario {
 		//network.addEdge(source, target, weight);
 		
 		network.print();
+		Random rnd = new Random();
 		
-		
-		for (int i = 0; i < INTERATION_NUM; i++) {
-			
-			
+		for (int i = 0; i < INTERATION_NUM; i++) {						
+			User user = network.getRandomUser();
 			
 		}
 		

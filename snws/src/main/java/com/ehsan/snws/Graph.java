@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.Collection;
 
@@ -111,6 +112,16 @@ public class Graph {
 	
 	public int getUsersCount () {
 		return getAllUsers().size();
+	}
+	
+	public User getRandomUser () {
+		Random rnd = new Random();
+		return (User) getAllUsers().get(rnd.nextInt(getUsersCount()));
+	}
+	
+	public User getRandomWebService () {
+		Random rnd = new Random();
+		return (User) getAllWebServices().get(rnd.nextInt(getWebServicesCount()));
 	}
 
 	public void print () {
