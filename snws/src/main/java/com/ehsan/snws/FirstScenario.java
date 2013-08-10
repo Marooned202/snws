@@ -46,23 +46,23 @@ public class FirstScenario implements Scenario {
 
 				User user = network.getRandomUser();			
 
-				List<Integer> servicesNeeded = getRandomServicesNeeded();						
+				List<Integer> serviceTypes = getRandomServicesNeeded();						
 
 				String tmp = "";
-				for (int service : servicesNeeded) {
+				for (int service : serviceTypes) {
 					tmp = tmp + ", " + service;
 				}
 
 				System.out.printf("User %d is looking for services %s\n", user.id, tmp);
 				output.printf("User %d is looking for services %s\n", user.id, tmp);
 				
-				if (servicesNeeded.size() == 1) {
-					performSingleService (servicesNeeded.get(0), user);
+				if (serviceTypes.size() == 1) {
+					performSingleService (serviceTypes.get(0), user);
 				} else {
-					performCompositeService (servicesNeeded, user);
+					performCompositeService (serviceTypes, user);
 				}
 				
-				for (int service: servicesNeeded) {
+				for (int service: serviceTypes) {
 					
 				}
 
@@ -74,14 +74,20 @@ public class FirstScenario implements Scenario {
 		}  
 	}
 
-	private void performCompositeService(List<Integer> servicesNeeded, User user) {
+	private void performCompositeService(List<Integer> serviceTypes, User user) {
 		
 		
 	}
 
-	private void performSingleService(Integer integer, User user) {
-		
-		
+	private void performSingleService(Integer serviceType, User user) {
+		 
+		ArrayList <WebService> webServices = getAllWebServicesUserServiceType (user, serviceType);
+	}
+
+	// This method finds all web services which are neighbor of "user" and provide service type of "serviceType"
+	private ArrayList<WebService> getAllWebServicesUserServiceType(User user, Integer serviceType) {
+		ArrayList<WebService> webServices = new ArrayList<WebService>();
+		return webServices;
 	}
 
 	private List<Integer> getRandomServicesNeeded() {
