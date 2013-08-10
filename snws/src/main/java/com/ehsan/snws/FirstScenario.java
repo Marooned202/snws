@@ -84,11 +84,6 @@ public class FirstScenario implements Scenario {
 		ArrayList <WebService> webServices = getAllWebServicesUserServiceType (user, serviceType);
 	}
 
-	// This method finds all web services which are neighbor of "user" and provide service type of "serviceType"
-	private ArrayList<WebService> getAllWebServicesUserServiceType(User user, Integer serviceType) {
-		ArrayList<WebService> webServices = new ArrayList<WebService>();
-		return webServices;
-	}
 
 	private List<Integer> getRandomServicesNeeded() {
 

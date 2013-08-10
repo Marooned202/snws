@@ -105,25 +105,33 @@ public class Graph {
 		}
 		return wsList;
 	}
-	
+
 	public int getWebServicesCount () {
 		return getAllWebServices().size();
 	}
-	
+
 	public int getUsersCount () {
 		return getAllUsers().size();
 	}
-	
+
 	public User getRandomUser () {
 		Random rnd = new Random();
 		return (User) getAllUsers().get(rnd.nextInt(getUsersCount()));
 	}
-	
+
 	public User getRandomWebService () {
 		Random rnd = new Random();
 		return (User) getAllWebServices().get(rnd.nextInt(getWebServicesCount()));
 	}
 
+	// This method finds all web services which are neighbor of "user" and provide service type of "serviceType"
+	public ArrayList<WebService> getAllWebServicesUserServiceType(User user, Integer serviceType) {
+		ArrayList<WebService> webServices = new ArrayList<WebService>();
+		
+		return webServices;
+	}
+	
+	
 	public void print () {
 		System.out.println("Users: ");
 		for (Node node: adjacencies.keySet()) {
@@ -151,6 +159,5 @@ public class Graph {
 			}
 		}
 	}
-
 
 }
