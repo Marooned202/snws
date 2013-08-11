@@ -16,7 +16,7 @@ public class FirstScenario implements Scenario {
 
 	Graph network = new Graph();
 
-	public final static int INTERATION_NUM = 100;
+	public final static int INTERATION_NUM = 5;
 	public final static int USER_NUM = 2;
 	public final static int WEB_SERVICE_NUM = 2;
 	public final static int WEB_SERVICE_TYPES = 2;
