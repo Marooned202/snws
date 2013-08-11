@@ -13,6 +13,11 @@ public class Graph {
 
 	private Map<Node, List<Edge>> adjacencies = new HashMap<Node, List<Edge>>();
 
+	public void addUniqueEdge(Edge edge) { // Checks if Edge exists will not insert it
+		if (!getAllEdges().contains(edge))
+			addEdge (edge);
+	}
+	
 	public void addEdge(Edge edge) {
 		List<Edge> list;
 		if(!adjacencies.containsKey(edge.from)) {

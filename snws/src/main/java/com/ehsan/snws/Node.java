@@ -1,15 +1,32 @@
 package com.ehsan.snws;
 
 public class Node implements Comparable<Node> {
-    
-    public int id;
-    public String name;    
-    
-    public Node(int id) {
-        this.id = id;
-    }
-    
-    public int compareTo(final Node node) {
-        return node == this ? 0 : -1;
-    }
- }
+
+	public int id;
+	public String name;    
+
+	public Node(int id) {
+		this.id = id;
+	}
+
+	public int compareTo(final Node node) {
+		return node.id == this.id ? 0 : -1;
+	}
+
+	@Override
+	public boolean equals(Object other){
+		if (other == null) return false;
+		if (other == this) return true;
+		if (!(other instanceof Node)) return false;
+		Node otherNode = (Node)other;
+		return (otherNode.id == this.id);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 31 * hash + id;
+		return hash;
+	}
+}

@@ -17,8 +17,8 @@ public class FirstScenario implements Scenario {
 	Graph network = new Graph();
 
 	public final static int INTERATION_NUM = 100;
-	public final static int USER_NUM = 5;
-	public final static int WEB_SERVICE_NUM = 5;
+	public final static int USER_NUM = 2;
+	public final static int WEB_SERVICE_NUM = 2;
 	public final static int WEB_SERVICE_TYPES = 2;
 
 	@Override
@@ -128,17 +128,21 @@ public class FirstScenario implements Scenario {
 		Random rnd = new Random();
 
 		for (Node node: network.getAllUsers()) {
-			UserUserLink uuLink = new UserUserLink(node, network.getAllUsers().get(rnd.nextInt(network.getAllUsers().size())));
-			network.addEdge(uuLink);	
+			
+			ArrayList<Node> allNodesButNode = (ArrayList<Node>)network.getAllUsers();
+			allNodesButNode.remove(node);
+			
+			UserUserLink uuLink = new UserUserLink(node, allNodesButNode.get(rnd.nextInt(allNodesButNode.size())));
+			network.addUniqueEdge(uuLink);	
 			UserUserLink uuLink2 = new UserUserLink(uuLink.to, uuLink.from);
-			network.addEdge(uuLink2);
+			network.addUniqueEdge(uuLink2);
 
 			int p = rnd.nextInt(10);
 			if (p > 3) {
 				UserWebServiceLink uwcLink = new UserWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
-				network.addEdge(uwcLink);
+				network.addUniqueEdge(uwcLink);
 				WebServiceUserLink wcuLink = new WebServiceUserLink(uwcLink.to, uwcLink.from);
-				network.addEdge(wcuLink);
+				network.addUniqueEdge(wcuLink);
 			}
 
 		}
