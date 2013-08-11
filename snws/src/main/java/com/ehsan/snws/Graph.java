@@ -89,6 +89,24 @@ public class Graph {
 		}
 		return res;
 	}
+	
+	public List<WebService> getAllConnectedWebServices (Node source) {
+		List<Edge> edges = getAllLinksToOtherWebServices(source);
+		List<WebService> res = new ArrayList<WebService>();
+		for (Edge edge: edges) {
+			res.add((WebService) edge.to);
+		}
+		return res;
+	}
+	
+	public List<User> getAllConnectedUsers (Node source) {
+		List<Edge> edges = getAllLinksToOtherUsers(source);
+		List<User> res = new ArrayList<User>();
+		for (Edge edge: edges) {
+			res.add((User) edge.to);
+		}
+		return res;
+	}
 
 	public List<Node> getAllWebServices () {
 		List<Node> wsList = new ArrayList<Node>();
@@ -127,6 +145,8 @@ public class Graph {
 	// This method finds all web services which are neighbor of "user" and provide service type of "serviceType"
 	public ArrayList<WebService> getAllWebServicesUserServiceType(User user, Integer serviceType) {
 		ArrayList<WebService> webServices = new ArrayList<WebService>();
+		
+		
 		
 		return webServices;
 	}

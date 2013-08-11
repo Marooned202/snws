@@ -10,6 +10,7 @@ import java.util.Random;
 
 import com.ehsan.snws.link.UserUserLink;
 import com.ehsan.snws.link.UserWebServiceLink;
+import com.ehsan.snws.link.WebServiceUserLink;
 
 public class FirstScenario implements Scenario {
 
@@ -67,6 +68,8 @@ public class FirstScenario implements Scenario {
 				}
 
 			}
+			
+			network.print();
 
 			output.close();
 		} catch (IOException e) {
@@ -81,7 +84,7 @@ public class FirstScenario implements Scenario {
 
 	private void performSingleService(Integer serviceType, User user) {
 		 
-		ArrayList <WebService> webServices = getAllWebServicesUserServiceType (user, serviceType);
+		ArrayList <WebService> webServices = network.getAllWebServicesUserServiceType (user, serviceType);
 	}
 
 
@@ -127,17 +130,18 @@ public class FirstScenario implements Scenario {
 		for (Node node: network.getAllUsers()) {
 			UserUserLink uuLink = new UserUserLink(node, network.getAllUsers().get(rnd.nextInt(network.getAllUsers().size())));
 			network.addEdge(uuLink);	
+			UserUserLink uuLink2 = new UserUserLink(uuLink.to, uuLink.from);
+			network.addEdge(uuLink2);
 
 			int p = rnd.nextInt(10);
 			if (p > 3) {
 				UserWebServiceLink uwcLink = new UserWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
 				network.addEdge(uwcLink);
+				WebServiceUserLink wcuLink = new WebServiceUserLink(uwcLink.to, uwcLink.from);
+				network.addEdge(wcuLink);
 			}
 
 		}
-
-
-
 
 	}
 }
