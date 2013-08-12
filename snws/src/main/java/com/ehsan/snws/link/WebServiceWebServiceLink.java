@@ -19,7 +19,7 @@ public class WebServiceWebServiceLink extends Edge{
 	
 	@Override
 	public String toString () {
-		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dc: " + dc + ", ds: " + ds;
+		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dc: " + dc + ", ds: " + ds + ", interactionCount" + interactionCount;
 		return str;
 	}
 

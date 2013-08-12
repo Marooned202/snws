@@ -5,6 +5,7 @@ public class Edge implements Comparable<Edge> {
     public Node from, to;
     public int weight;
     public int type = 0;
+    public int interactionCount;
     
     public Edge(final Node argFrom, final Node argTo){
         from = argFrom;
