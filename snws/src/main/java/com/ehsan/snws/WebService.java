@@ -1,6 +1,6 @@
 package com.ehsan.snws;
 
-public class WebService extends Node {
+public class WebService extends Node implements Comparable<WebService>{
 
 	public double su;
 	public double rt;
@@ -23,6 +23,11 @@ public class WebService extends Node {
 	public String toString () {
 		String str = "Id: " + id + ", type: " + type + ", su: " + su + ", rt: " + rt + ", cost: " + cost + " , QoS:" + QoS + ", compCount"+ compCount +",reqSubCount:"+ reqSubCount;
 		return str;
+	}
+
+	@Override
+	public int compareTo(WebService other) {
+		return Double.compare(this.QoS, other.QoS);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.ehsan.snws;
 
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -107,6 +108,17 @@ public class Graph {
 		return res;
 	}
 	
+	public List<WebService> getAllConnectedWebServicesOfType (Node source, int serviceType) {
+		List<Edge> edges = getAllLinksToOtherWebServices(source);
+		List<WebService> res = new ArrayList<WebService>();
+		for (Edge edge: edges) {
+			WebService ws = (WebService) edge.to;
+			if (ws.type == serviceType)
+				res.add((WebService) edge.to);
+		}
+		return res;
+	}
+	
 	public List<User> getAllConnectedUsers (Node source) {
 		List<Edge> edges = getAllLinksToOtherUsers(source);
 		List<User> res = new ArrayList<User>();
@@ -154,7 +166,10 @@ public class Graph {
 	public ArrayList<WebService> getAllWebServicesUserServiceType(User user, Integer serviceType) {
 		ArrayList<WebService> webServices = new ArrayList<WebService>();
 		
-		
+		webServices.addAll(getAllConnectedWebServicesOfType(user, serviceType));
+		for (User neighbor: getAllConnectedUsers(user)) {
+			webServices.addAll(getAllConnectedWebServicesOfType(neighbor, serviceType));
+		}		
 		
 		return webServices;
 	}
