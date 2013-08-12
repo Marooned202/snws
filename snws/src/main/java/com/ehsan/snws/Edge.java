@@ -20,8 +20,8 @@ public class Edge implements Comparable<Edge> {
 	public boolean equals(Object other){
 		if (other == null) return false;
 		if (other == this) return true;
-		if (!(other instanceof Node)) return false;
-		Edge otherEdge = (Edge)other;
+		if (!(other instanceof Edge)) return false;
+		Edge otherEdge = (Edge)other;		
 		return (otherEdge.from.id == this.from.id && otherEdge.to.id == this.to.id && otherEdge.type == this.type);
 	}
 
