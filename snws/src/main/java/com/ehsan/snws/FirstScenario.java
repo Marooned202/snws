@@ -12,14 +12,15 @@ import java.util.Random;
 import com.ehsan.snws.link.UserUserLink;
 import com.ehsan.snws.link.UserWebServiceLink;
 import com.ehsan.snws.link.WebServiceUserLink;
+import com.ehsan.snws.link.WebServiceWebServiceLink;
 
 public class FirstScenario implements Scenario {
 
 	Graph network = new Graph();
 
 	public final static int INTERATION_NUM = 5;
-	public final static int USER_NUM = 2;
-	public final static int WEB_SERVICE_NUM = 2;
+	public final static int USER_NUM = 5;
+	public final static int WEB_SERVICE_NUM = 5;
 	public final static int WEB_SERVICE_TYPES = 2;
 
 	@Override
@@ -27,7 +28,7 @@ public class FirstScenario implements Scenario {
 
 		File file = new File("output.txt");  
 		FileWriter writer;
-		
+
 		try {
 			writer = new FileWriter(file, true);
 
@@ -57,19 +58,19 @@ public class FirstScenario implements Scenario {
 
 				System.out.printf("User %d is looking for services %s\n", user.id, tmp);
 				output.printf("User %d is looking for services %s\n", user.id, tmp);
-				
+
 				if (serviceTypes.size() == 1) {
 					performSingleService (serviceTypes.get(0), user);
 				} else {
 					performCompositeService (serviceTypes, user);
 				}
-				
+
 				for (int service: serviceTypes) {
-					
+
 				}
 
 			}
-			
+
 			network.print();
 
 			output.close();
@@ -79,15 +80,86 @@ public class FirstScenario implements Scenario {
 	}
 
 	private void performCompositeService(List<Integer> serviceTypes, User user) {
+
+		List<WebService> bestWebServices = new ArrayList<WebService>();
 		
+		for (Integer serviceType: serviceTypes) {
+			
+			ArrayList <WebService> webServices = network.getAllWebServicesUserServiceType (user, serviceType);
+			if (!webServices.isEmpty()) { // Found a web service proding service "serviceType"
+				Collections.sort(webServices, new WebServiceQoSComparator()); // Choosing the one with highest QoS
+
+				WebService bestWebservice = webServices.get(0);
+
+				System.out.println("Found WS: " + bestWebservice.id);
+				
+				bestWebServices.add(bestWebservice);
+
+				// Connect User to Webservice and vise versa
+				UserWebServiceLink uwsLink = new UserWebServiceLink(user, bestWebservice);
+				// Add properties to link if needed here
+				// ...
+				// ...
+				// ...
+				network.addUniqueEdge(uwsLink);
+
+				WebServiceUserLink wsuLink = new WebServiceUserLink(bestWebservice, user);
+				// Add properties to link if needed here
+				// ...
+				// ...
+				// ...
+				network.addUniqueEdge(wsuLink);						
+			}										
+		}
 		
+		// Connecting bestWebservices together (the webservice who did the job)
+		for (WebService webService1: bestWebServices) {
+			for (WebService webService2: bestWebServices) {
+				if (webService1.equals(webService2)) continue; // We do not link webservices to same webservices
+				WebServiceWebServiceLink wswsLink = new WebServiceWebServiceLink(webService1, webService2);
+				// Add properties to link if needed here
+				// ...
+				// ...
+				// ...
+				network.addUniqueEdge(wswsLink);
+				
+				// Other way link
+				WebServiceWebServiceLink wswsLink2 = new WebServiceWebServiceLink(webService2, webService1);
+				// Add properties to link if needed here
+				// ...
+				// ...
+				// ...
+				network.addUniqueEdge(wswsLink2);
+			}						
+		}
+
 	}
 
 	private void performSingleService(Integer serviceType, User user) {
-		 
+
 		ArrayList <WebService> webServices = network.getAllWebServicesUserServiceType (user, serviceType);
-		Collections.sort(webServices);
-		
+		if (!webServices.isEmpty()) { // Found a web service proding service "serviceType"
+			Collections.sort(webServices, new WebServiceQoSComparator()); // Choosing the one with highest QoS
+
+			WebService bestWebservice = webServices.get(0);
+
+			System.out.println("Found WS: " + bestWebservice.id);
+
+			// Connect User to Webservice and vise versa
+			UserWebServiceLink uwsLink = new UserWebServiceLink(user, bestWebservice);
+			// Add properties to link if needed here
+			// ...
+			// ...
+			// ...
+			network.addUniqueEdge(uwsLink);
+
+			WebServiceUserLink wsuLink = new WebServiceUserLink(bestWebservice, user);
+			// Add properties to link if needed here
+			// ...
+			// ...
+			// ...
+			network.addUniqueEdge(wsuLink);						
+		}								
 	}
 
 
@@ -131,10 +203,10 @@ public class FirstScenario implements Scenario {
 		Random rnd = new Random();
 
 		for (Node node: network.getAllUsers()) {
-			
+
 			ArrayList<Node> allNodesButNode = (ArrayList<Node>)network.getAllUsers();
 			allNodesButNode.remove(node);
-			
+
 			UserUserLink uuLink = new UserUserLink(node, allNodesButNode.get(rnd.nextInt(allNodesButNode.size())));
 			network.addUniqueEdge(uuLink);	
 			UserUserLink uuLink2 = new UserUserLink(uuLink.to, uuLink.from);
@@ -142,10 +214,10 @@ public class FirstScenario implements Scenario {
 
 			int p = rnd.nextInt(10);
 			if (p > 3) {
-				UserWebServiceLink uwcLink = new UserWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
-				network.addUniqueEdge(uwcLink);
-				WebServiceUserLink wcuLink = new WebServiceUserLink(uwcLink.to, uwcLink.from);
-				network.addUniqueEdge(wcuLink);
+				UserWebServiceLink uwsLink = new UserWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
+				network.addUniqueEdge(uwsLink);
+				WebServiceUserLink wsuLink = new WebServiceUserLink(uwsLink.to, uwsLink.from);
+				network.addUniqueEdge(wsuLink);
 			}
 
 		}
