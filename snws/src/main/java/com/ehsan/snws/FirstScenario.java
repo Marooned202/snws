@@ -27,7 +27,7 @@ public class FirstScenario implements Scenario {
 	@Override
 	public void run() {
 
-		File file = new File("output.txt");  
+		File file = new File("output-"+new java.util.Date().getTime()+".txt");  
 		FileWriter writer;
 
 		try {
@@ -40,13 +40,13 @@ public class FirstScenario implements Scenario {
 
 			//network.addEdge(source, target, weight);
 
-			network.print();
+			network.print(output);
 			Random rnd = new Random();
 
 			for (int i = 0; i < INTERATION_NUM; i++) {		
 
-				System.out.println("#" + i);
-				output.println("#" + i);
+				System.out.println("Iteration #" + i);
+				output.println("Iteration #" + i);
 
 				User user = network.getRandomUser();			
 
@@ -67,7 +67,7 @@ public class FirstScenario implements Scenario {
 				}
 			}
 
-			network.print();
+			network.print(output);
 
 			output.close();
 		} catch (IOException e) {

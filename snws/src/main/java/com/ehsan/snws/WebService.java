@@ -1,5 +1,6 @@
 package com.ehsan.snws;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,9 +81,10 @@ public class WebService extends Node implements Comparable<WebService>{
 		return users;
 	}
 	
-	public void printHistoryOfUsersService () {
+	public void printHistoryOfUsersService (PrintWriter output) {
 		for (Pair pair: historyOfUsersAskingForService.keySet()) {
 			System.out.println("\tHistory: UserID: " + pair.user.id + " asked for serviceType: " + pair.serviceType + ", #" + historyOfUsersAskingForService.get(pair) + " times");
+			output.println("\tHistory: UserID: " + pair.user.id + " asked for serviceType: " + pair.serviceType + ", #" + historyOfUsersAskingForService.get(pair) + " times");
 		}
 	}
 

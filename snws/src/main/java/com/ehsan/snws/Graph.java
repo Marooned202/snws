@@ -1,6 +1,7 @@
 package com.ehsan.snws;
 
 
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
@@ -183,43 +184,52 @@ public class Graph {
 	}
 	
 	
-	public void print () {
+	public void print (PrintWriter output) {
 		System.out.println("Users: ");
+		output.println("Users: ");
 		for (Node node: adjacencies.keySet()) {
 			if (node instanceof User) {
 				User user = (User) node;
 				System.out.println(user);
+				output.println(user);
 
 				List<Edge> userEdges = getAllLinksToOtherUsers(node);
 				for (Edge edge: userEdges) {
 					System.out.println("\t[U---U] " + edge);
+					output.println("\t[U---U] " + edge);
 				}
 
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
 				for (Edge edge: webServiceEdges) {
 					System.out.println("\t[U---W] " + edge);
+					output.println("\t[U---W] " + edge);
 				}
 			}
 		}
 
 		System.out.println("");
 		System.out.println("Web Services: ");
+		output.println("");
+		output.println("Web Services: ");
 		for (Node node: adjacencies.keySet()) {
 			if (node instanceof WebService) {
 				WebService webService = (WebService) node;
 				System.out.println(webService);
+				output.println(webService);
 				
 				List<Edge> userEdges = getAllLinksToOtherUsers(node);
 				for (Edge edge: userEdges) {
 					System.out.println("\t[W---U] " + edge);
+					output.println("\t[W---U] " + edge);
 				}
 
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
 				for (Edge edge: webServiceEdges) {
 					System.out.println("\t[W---W] " + edge);
+					output.println("\t[W---W] " + edge);
 				}
 				
-				webService.printHistoryOfUsersService();
+				webService.printHistoryOfUsersService(output);
 			}
 		}
 	}
