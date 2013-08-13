@@ -64,11 +64,6 @@ public class FirstScenario implements Scenario {
 				} else {
 					performCompositeService (serviceTypes, user);
 				}
-
-				for (int service: serviceTypes) {
-
-				}
-
 			}
 
 			network.print();
