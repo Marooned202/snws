@@ -74,6 +74,14 @@ public class Graph {
 		}
 		return edges;
 	}
+	
+	public Edge getLinkBetweenTwoNodes (Node from, Node to) {
+		for(Edge e : getAllEdges()) {
+			if (e.from.equals(from) && e.to.equals(to))
+				return e;
+		}
+		return null;
+	}
 
 	public List<Edge> getAllLinksToOtherWebServices(Node source) {
 		List<Edge> res = new ArrayList<Edge>();

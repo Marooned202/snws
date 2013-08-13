@@ -91,7 +91,7 @@ public class FirstScenario implements Scenario {
 
 				WebService bestWebservice = webServices.get(0);
 
-				System.out.println("Found WS: " + bestWebservice.id);
+				System.out.println("Found WS: " + bestWebservice);
 				
 				bestWebServices.add(bestWebservice);
 
@@ -108,7 +108,13 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				// ...
-				network.addUniqueEdge(wsuLink);						
+				network.addUniqueEdge(wsuLink);			
+				
+				// Increase Interaction count of the link bet user and webservice and the link between webservice and user
+				Edge link = network.getLinkBetweenTwoNodes(user, bestWebservice);
+				link.interactionCount++;
+				Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
+				link2.interactionCount++;
 			}										
 		}
 		
@@ -143,9 +149,9 @@ public class FirstScenario implements Scenario {
 
 			WebService bestWebservice = webServices.get(0);
 
-			System.out.println("Found WS: " + bestWebservice.id);
+			System.out.println("Found WS: " + bestWebservice);
 
-			// Connect User to Webservice and vise versa
+			// Connect User to Webservice and vise versa (if it exists will not be added, we are using addUniqueEdge)
 			UserWebServiceLink uwsLink = new UserWebServiceLink(user, bestWebservice);
 			// Add properties to link if needed here
 			// ...
@@ -158,7 +164,13 @@ public class FirstScenario implements Scenario {
 			// ...
 			// ...
 			// ...
-			network.addUniqueEdge(wsuLink);						
+			network.addUniqueEdge(wsuLink);	
+			
+			// Increase Interaction count of the link bet user and webservice and the link between webservice and user
+			Edge link = network.getLinkBetweenTwoNodes(user, bestWebservice);
+			link.interactionCount++;
+			Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
+			link2.interactionCount++;
 		}								
 	}
 

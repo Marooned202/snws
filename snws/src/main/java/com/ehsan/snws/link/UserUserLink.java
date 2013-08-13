@@ -15,7 +15,7 @@ public class UserUserLink extends Edge{
 	
 	@Override
 	public String toString () {
-		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ",useriWsUserj:"+ useriWsUserj + ", interactionCount" + interactionCount;
+		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ",useriWsUserj: "+ useriWsUserj + ", interactionCount: " + interactionCount;
 		return str;
 	}
 

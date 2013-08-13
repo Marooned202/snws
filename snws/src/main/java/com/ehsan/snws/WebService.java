@@ -21,7 +21,7 @@ public class WebService extends Node implements Comparable<WebService>{
 	
 	@Override
 	public String toString () {
-		String str = "Id: " + id + ", type: " + type + ", su: " + su + ", rt: " + rt + ", cost: " + cost + " , QoS:" + QoS + ", compCount"+ compCount +",reqSubCount:"+ reqSubCount;
+		String str = "Id: " + id + ", type: " + type + ", su: " + su + ", rt: " + rt + ", cost: " + cost + " , QoS: " + QoS + ", compCount: " + compCount + ", reqSubCount: " + reqSubCount;
 		return str;
 	}
 
