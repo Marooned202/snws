@@ -194,11 +194,22 @@ public class Graph {
 			}
 		}
 
+		System.out.println("");
 		System.out.println("Web Services: ");
 		for (Node node: adjacencies.keySet()) {
 			if (node instanceof WebService) {
 				WebService webService = (WebService) node;
 				System.out.println(webService);
+				
+				List<Edge> userEdges = getAllLinksToOtherUsers(node);
+				for (Edge edge: userEdges) {
+					System.out.println("\t[W---U] " + edge);
+				}
+
+				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
+				for (Edge edge: webServiceEdges) {
+					System.out.println("\t[W---W] " + edge);
+				}
 			}
 		}
 	}
