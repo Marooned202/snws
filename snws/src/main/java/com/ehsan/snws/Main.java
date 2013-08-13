@@ -5,5 +5,8 @@ public class Main {
 		Scenario scenario = new FirstScenario();
 		scenario.run();
 		// test
+		
+		System.out.println("\\".replaceAll("\\\\", "\\\\\\\\"));
+		
 	}
 }
