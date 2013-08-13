@@ -218,6 +218,8 @@ public class Graph {
 				for (Edge edge: webServiceEdges) {
 					System.out.println("\t[W---W] " + edge);
 				}
+				
+				webService.printHistoryOfUsersService();
 			}
 		}
 	}

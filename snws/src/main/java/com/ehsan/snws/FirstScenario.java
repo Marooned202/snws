@@ -18,10 +18,11 @@ public class FirstScenario implements Scenario {
 
 	Graph network = new Graph();
 
-	public final static int INTERATION_NUM = 5;
-	public final static int USER_NUM = 5;
-	public final static int WEB_SERVICE_NUM = 5;
+	public final static int INTERATION_NUM = 50;
+	public final static int USER_NUM = 20;
+	public final static int WEB_SERVICE_NUM = 20;
 	public final static int WEB_SERVICE_TYPES = 2;
+	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 3;
 
 	@Override
 	public void run() {
@@ -76,7 +77,7 @@ public class FirstScenario implements Scenario {
 
 	private void performCompositeService(List<Integer> serviceTypes, User user) {
 
-		List<WebService> bestWebServices = new ArrayList<WebService>();
+		List<WebService> bestWebServices = new ArrayList<WebService>();						
 		
 		for (Integer serviceType: serviceTypes) {
 			
@@ -110,6 +111,21 @@ public class FirstScenario implements Scenario {
 				link.interactionCount++;
 				Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
 				link2.interactionCount++;
+				
+				// Add the user history in webservice, that this webservice has done service type for user
+				bestWebservice.addUserToHistory(user, serviceType);
+				
+				// Now check for all users who asked for this service more than N times, and connect them together
+				List<User> users = bestWebservice.getAllUsersHavingIntractionMoreThanValue(NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED, serviceType);
+				for (User u: users) {
+					if (u.id != user.id) {
+						UserUserLink uuLink = new UserUserLink(u, user);
+						network.addUniqueEdge(uuLink);	
+						UserUserLink uuLink2 = new UserUserLink(user, u);
+						network.addUniqueEdge(uuLink2);
+					}
+				}
+				
 			}										
 		}
 		
@@ -166,6 +182,21 @@ public class FirstScenario implements Scenario {
 			link.interactionCount++;
 			Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
 			link2.interactionCount++;
+			
+			// Add the user history in webservice, that this webservice has done service type for user
+			bestWebservice.addUserToHistory(user, serviceType);
+			
+			// Now check for all users who asked for this service more than N times, and connect them together
+			List<User> users = bestWebservice.getAllUsersHavingIntractionMoreThanValue(NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED, serviceType);
+			for (User u: users) {
+				if (u.id != user.id) {
+					UserUserLink uuLink = new UserUserLink(u, user);
+					network.addUniqueEdge(uuLink);	
+					UserUserLink uuLink2 = new UserUserLink(user, u);
+					network.addUniqueEdge(uuLink2);
+				}
+			}
+			
 		}								
 	}
 
@@ -220,7 +251,7 @@ public class FirstScenario implements Scenario {
 			network.addUniqueEdge(uuLink2);
 
 			int p = rnd.nextInt(10);
-			if (p > 3) {
+			if (p > 3) { // more than 100%-30% chance (p is from 0 to 9)
 				UserWebServiceLink uwsLink = new UserWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
 				network.addUniqueEdge(uwsLink);
 				WebServiceUserLink wsuLink = new WebServiceUserLink(uwsLink.to, uwsLink.from);

@@ -17,7 +17,7 @@ public class User extends Node {
 	
 	@Override
 	public String toString () {
-		String str = "Id: " + id + ", reqResponsetime: " + reqResponsetime + ", reqSuccessability: " + reqSuccessability + ", interactionCount: " + interactionCount + ", wsEdgeCount: " + wsEdgeCount ;
+		String str = "User Id: " + id + ", reqResponsetime: " + reqResponsetime + ", reqSuccessability: " + reqSuccessability + ", interactionCount: " + interactionCount + ", wsEdgeCount: " + wsEdgeCount ;
 		return str;
 	}
 	
