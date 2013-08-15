@@ -61,9 +61,9 @@ public class FirstScenario implements Scenario {
 				output.printf("User %d is looking for services %s\n", user.id, tmp);
 
 				if (serviceTypes.size() == 1) {
-					performSingleService (serviceTypes.get(0), user);
+					performSingleService (serviceTypes.get(0), user, output);
 				} else {
-					performCompositeService (serviceTypes, user);
+					performCompositeService (serviceTypes, user, output);
 				}
 			}
 
@@ -75,7 +75,7 @@ public class FirstScenario implements Scenario {
 		}  
 	}
 
-	private void performCompositeService(List<Integer> serviceTypes, User user) {
+	private void performCompositeService(List<Integer> serviceTypes, User user, PrintWriter output) {
 
 		List<WebService> bestWebServices = new ArrayList<WebService>();						
 		
@@ -88,6 +88,7 @@ public class FirstScenario implements Scenario {
 				WebService bestWebservice = webServices.get(0);
 
 				System.out.println("Found WS: " + bestWebservice);
+				output.println("Found WS: " + bestWebservice);
 				
 				bestWebServices.add(bestWebservice);
 
@@ -152,7 +153,7 @@ public class FirstScenario implements Scenario {
 
 	}
 
-	private void performSingleService(Integer serviceType, User user) {
+	private void performSingleService(Integer serviceType, User user, PrintWriter output) {
 
 		ArrayList <WebService> webServices = network.getAllWebServicesUserServiceType (user, serviceType);
 		if (!webServices.isEmpty()) { // Found a web service proding service "serviceType"
@@ -161,6 +162,7 @@ public class FirstScenario implements Scenario {
 			WebService bestWebservice = webServices.get(0);
 
 			System.out.println("Found WS: " + bestWebservice);
+			output.println("Found WS: " + bestWebservice);
 
 			// Connect User to Webservice and vise versa (if it exists will not be added, we are using addUniqueEdge)
 			UserWebServiceLink uwsLink = new UserWebServiceLink(user, bestWebservice);
