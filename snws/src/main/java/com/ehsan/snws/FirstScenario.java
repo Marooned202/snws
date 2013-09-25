@@ -24,6 +24,9 @@ public class FirstScenario implements Scenario {
 	public final static int WEB_SERVICE_TYPES = 2;
 	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 3;
 
+	public final static int INITIAL_USER_WEBSERVICE_CONNECTION_CHANCE = 30;
+	public final static int INITIAL_WEBSERVICE_WEBSERVICE_CONNECTION_CHANCE = 20;
+
 	@Override
 	public void run() {
 
@@ -78,9 +81,9 @@ public class FirstScenario implements Scenario {
 	private void performCompositeService(List<Integer> serviceTypes, User user, PrintWriter output) {
 
 		List<WebService> bestWebServices = new ArrayList<WebService>();						
-		
+
 		for (Integer serviceType: serviceTypes) {
-			
+
 			ArrayList <WebService> webServices = network.getAllWebServicesUserServiceType (user, serviceType);
 			if (!webServices.isEmpty()) { // Found a web service proding service "serviceType"
 				Collections.sort(webServices, new WebServiceQoSComparator()); // Choosing the one with highest QoS
@@ -89,7 +92,7 @@ public class FirstScenario implements Scenario {
 
 				System.out.println("Found WS: " + bestWebservice);
 				output.println("Found WS: " + bestWebservice);
-				
+
 				bestWebServices.add(bestWebservice);
 
 				// Connect User to Webservice and vise versa
@@ -106,16 +109,16 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				network.addUniqueEdge(wsuLink);			
-				
+
 				// Increase Interaction count of the link bet user and webservice and the link between webservice and user
 				Edge link = network.getLinkBetweenTwoNodes(user, bestWebservice);
 				link.interactionCount++;
 				Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
 				link2.interactionCount++;
-				
+
 				// Add the user history in webservice, that this webservice has done service type for user
 				bestWebservice.addUserToHistory(user, serviceType);
-				
+
 				// Now check for all users who asked for this service more than N times, and connect them together
 				List<User> users = bestWebservice.getAllUsersHavingIntractionMoreThanValue(NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED, serviceType);
 				for (User u: users) {
@@ -126,10 +129,10 @@ public class FirstScenario implements Scenario {
 						network.addUniqueEdge(uuLink2);
 					}
 				}
-				
+
 			}										
 		}
-		
+
 		// Connecting bestWebservices together (the webservice who did the job)
 		for (WebService webService1: bestWebServices) {
 			for (WebService webService2: bestWebServices) {
@@ -140,7 +143,7 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				network.addUniqueEdge(wswsLink);
-				
+
 				// Other way link
 				WebServiceWebServiceLink wswsLink2 = new WebServiceWebServiceLink(webService2, webService1);
 				// Add properties to link if needed here
@@ -178,16 +181,16 @@ public class FirstScenario implements Scenario {
 			// ...
 			// ...
 			network.addUniqueEdge(wsuLink);	
-			
+
 			// Increase Interaction count of the link bet user and webservice and the link between webservice and user
 			Edge link = network.getLinkBetweenTwoNodes(user, bestWebservice);
 			link.interactionCount++;
 			Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
 			link2.interactionCount++;
-			
+
 			// Add the user history in webservice, that this webservice has done service type for user
 			bestWebservice.addUserToHistory(user, serviceType);
-			
+
 			// Now check for all users who asked for this service more than N times, and connect them together
 			List<User> users = bestWebservice.getAllUsersHavingIntractionMoreThanValue(NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED, serviceType);
 			for (User u: users) {
@@ -198,7 +201,7 @@ public class FirstScenario implements Scenario {
 					network.addUniqueEdge(uuLink2);
 				}
 			}
-			
+
 		}								
 	}
 
@@ -243,7 +246,6 @@ public class FirstScenario implements Scenario {
 		Random rnd = new Random();
 
 		for (Node node: network.getAllUsers()) {
-
 			ArrayList<Node> allNodesButNode = (ArrayList<Node>)network.getAllUsers();
 			allNodesButNode.remove(node);
 
@@ -252,14 +254,23 @@ public class FirstScenario implements Scenario {
 			UserUserLink uuLink2 = new UserUserLink(uuLink.to, uuLink.from);
 			network.addUniqueEdge(uuLink2);
 
-			int p = rnd.nextInt(10);
-			if (p > 3) { // more than 100%-30% chance (p is from 0 to 9)
+			int p = rnd.nextInt(100);
+			if (p > INITIAL_USER_WEBSERVICE_CONNECTION_CHANCE) { // more than 100%-30% chance (p is from 0 to 9)
 				UserWebServiceLink uwsLink = new UserWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
 				network.addUniqueEdge(uwsLink);
 				WebServiceUserLink wsuLink = new WebServiceUserLink(uwsLink.to, uwsLink.from);
 				network.addUniqueEdge(wsuLink);
-			}
+			}			
+		}
 
+		for (Node node: network.getAllWebServices()) {
+			int p = rnd.nextInt(100);
+			if (p > INITIAL_WEBSERVICE_WEBSERVICE_CONNECTION_CHANCE) { // more than 100%-30% chance (p is from 0 to 9)
+				WebServiceWebServiceLink wswsLink = new WebServiceWebServiceLink(node, network.getAllWebServices().get(rnd.nextInt(network.getAllWebServices().size())));
+				network.addUniqueEdge(wswsLink);
+				WebServiceWebServiceLink wswsLink2 = new WebServiceWebServiceLink(wswsLink.to, wswsLink.from);
+				network.addUniqueEdge(wswsLink2);
+			}
 		}
 
 	}
