@@ -129,8 +129,9 @@ public class FirstScenario implements Scenario {
 						network.addUniqueEdge(uuLink2);
 					}
 				}
-
-			}										
+			} else { // if no webservice arround the user can do that job
+				recommendWebserviceProvidngServiceType (user, serviceType, output); // Webservices around User will try to find web services proving the required service type
+			}
 		}
 
 		// Connecting bestWebservices together (the webservice who did the job)
@@ -154,6 +155,31 @@ public class FirstScenario implements Scenario {
 			}						
 		}
 
+	}
+
+	private void recommendWebserviceProvidngServiceType(User user, Integer serviceType, PrintWriter output) {
+		for (WebService webService : network.getAllConnectedWebServices(user))	{
+			for (WebService webService2 : network.getAllConnectedWebServicesOfType(webService, serviceType)) {
+				
+				System.out.printf("Recommending (Connecting) webservice %d for user %d, which was looking for service type %d\n", webService2.id, user.id, serviceType);
+				output.printf("Recommending (Connecting) webservice %d for user %d, which was looking for service type %d\n", webService2.id, user.id, serviceType);
+				
+				// Connect User to Webservice and vise versa
+				UserWebServiceLink uwsLink = new UserWebServiceLink(user, webService2);
+				// Add properties to link if needed here
+				// ...
+				// ...
+				// ...
+				network.addUniqueEdge(uwsLink);
+
+				WebServiceUserLink wsuLink = new WebServiceUserLink(webService2, user);
+				// Add properties to link if needed here
+				// ...
+				// ...
+				// ...
+				network.addUniqueEdge(wsuLink);		
+			}
+		}
 	}
 
 	private void performSingleService(Integer serviceType, User user, PrintWriter output) {
@@ -201,7 +227,8 @@ public class FirstScenario implements Scenario {
 					network.addUniqueEdge(uuLink2);
 				}
 			}
-
+		} else { // if no webservice arround the user can do that job
+			recommendWebserviceProvidngServiceType (user, serviceType, output); // Webservices around User will try to find web services proving the required service type
 		}								
 	}
 
