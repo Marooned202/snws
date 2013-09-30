@@ -25,7 +25,7 @@ public class FirstScenario implements Scenario {
 	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 3;
 
 	public final static int INITIAL_USER_WEBSERVICE_CONNECTION_CHANCE = 30;
-	public final static int INITIAL_WEBSERVICE_WEBSERVICE_CONNECTION_CHANCE = 20;
+	public final static int INITIAL_WEBSERVICE_WEBSERVICE_CONNECTION_CHANCE = 50;
 
 	@Override
 	public void run() {
