@@ -12,6 +12,10 @@ public class WebService extends Node implements Comparable<WebService>{
 	public int cost;
 	public int type;
 	public double QoS;
+	public double OutPut;
+	public double InPut;
+	public double PreCon;
+	public double Effect;
 	public int compCount;
 	public int reqSubCount;
 
@@ -47,7 +51,11 @@ public class WebService extends Node implements Comparable<WebService>{
 		su = Math.random();
 		rt = Math.random();
 		cost = (int) Math.random()*100;
-		QoS = Math.random();	     
+		QoS = Math.random();
+		PreCon = Math.random();
+		OutPut = Math.random();
+		InPut = Math.random();
+		Effect = Math.random();
 	}
 
 	@Override
