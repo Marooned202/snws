@@ -233,5 +233,9 @@ public class Graph {
 			}
 		}
 	}
+	
+	public void report () {
+		
+	}
 
 }
