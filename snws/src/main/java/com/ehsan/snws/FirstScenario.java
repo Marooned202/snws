@@ -18,11 +18,11 @@ public class FirstScenario implements Scenario {
 
 	Graph network = new Graph();
 
-	public final static int INTERATION_NUM = 300;
-	public final static int USER_NUM = 10;
-	public final static int WEB_SERVICE_NUM = 10;
+	public final static int INTERATION_NUM = 30;
+	public final static int USER_NUM = 20;
+	public final static int WEB_SERVICE_NUM = 15;
 	public final static int WEB_SERVICE_TYPES = 2;
-	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 2;
+	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 3;
 
 	public final static int INITIAL_USER_WEBSERVICE_CONNECTION_CHANCE = 30;
 	public final static int INITIAL_WEBSERVICE_WEBSERVICE_CONNECTION_CHANCE = 30;
@@ -43,8 +43,7 @@ public class FirstScenario implements Scenario {
 
 			//network.addEdge(source, target, weight);
 
-			//network.print(output);
-			network.printDocFormat(output);
+			network.print(output);
 			Random rnd = new Random();
 
 			for (int i = 0; i < INTERATION_NUM; i++) {		
@@ -71,8 +70,7 @@ public class FirstScenario implements Scenario {
 				}
 			}
 
-			//network.print(output);
-			network.printDocFormat(output);
+			network.print(output);
 
 			output.close();
 		} catch (IOException e) {
@@ -89,7 +87,7 @@ public class FirstScenario implements Scenario {
 			ArrayList <WebService> webServices = network.getAllWebServicesUserServiceType (user, serviceType);
 			if (!webServices.isEmpty()) { // Found a web service proding service "serviceType"
 				Collections.sort(webServices, new WebServiceQoSComparator()); // Choosing the one with highest QoS
-             
+
 				WebService bestWebservice = webServices.get(0);
 
 				System.out.println("Found WS: " + bestWebservice);
@@ -105,8 +103,6 @@ public class FirstScenario implements Scenario {
 				// ...
 				network.addUniqueEdge(uwsLink);
 
-				
-				
 				WebServiceUserLink wsuLink = new WebServiceUserLink(bestWebservice, user);
 				// Add properties to link if needed here
 				// ...
@@ -119,18 +115,7 @@ public class FirstScenario implements Scenario {
 				link.interactionCount++;
 				Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
 				link2.interactionCount++;
-                
-				//compute the weight between web services and user
-				//Edge weight= network.getLinkBetweenTwoNodes(user, bestWebservice);
-				//weight.weight= (user.reqResponsetime * bestWebservice.su) / (user.reqSuccessability*bestWebservice.su);
-				
-				// the other way around
-				//compute the weight between web services and user
-				//Edge weight2= network.getLinkBetweenTwoNodes(bestWebservice, user);
-				//weight2.weight= (user.reqResponsetime * bestWebservice.su) / (user.reqSuccessability*bestWebservice.su);
-				
-			
-				
+
 				// Add the user history in webservice, that this webservice has done service type for user
 				bestWebservice.addUserToHistory(user, serviceType);
 
@@ -152,15 +137,12 @@ public class FirstScenario implements Scenario {
 		// Connecting bestWebservices together (the webservice who did the job)
 		for (WebService webService1: bestWebServices) {
 			for (WebService webService2: bestWebServices) {
-				if (webService1.equals(webService2)) continue; 
-				// We do not link webservices to same webservices
+				if (webService1.equals(webService2)) continue; // We do not link webservices to same webservices
 				WebServiceWebServiceLink wswsLink = new WebServiceWebServiceLink(webService1, webService2);
 				// Add properties to link if needed here
-				if(!(webService1.type == webService2.type))
-				{
-				 webService1.compCount++;
-				 webService2.compCount++;
-				}
+				// ...
+				// ...
+				// ...
 				network.addUniqueEdge(wswsLink);
 
 				// Other way link
@@ -170,23 +152,6 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				network.addUniqueEdge(wswsLink2);
-			
-				
-				//increase wsicompwsj
-				if(!(webService1.type == webService2.type))
-				{
-				Edge linkWs1= network.getLinkBetweenTwoNodes(webService1, webService2);
-				linkWs1.wsiCompWsj++;
-				Edge linkws4 = network.getLinkBetweenTwoNodes(webService2, webService1);
-				linkws4.wsiCompWsj++;
-				}else{
-					Edge linkWs1= network.getLinkBetweenTwoNodes(webService1, webService2);
-					linkWs1.wsiSubWsj++;
-					Edge linkws4 = network.getLinkBetweenTwoNodes(webService2, webService1);
-					linkws4.wsiSubWsj++;
-					
-				}
-				
 			}						
 		}
 
@@ -212,17 +177,7 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				// ...
-				network.addUniqueEdge(wsuLink);	
-				
-				//compute the weight between web services and user
-				//Edge weight= network.getLinkBetweenTwoNodes(user, webService2);
-				//weight.weight= (user.reqResponsetime * webService2.su) / (user.reqSuccessability*webService2.su);
-				
-				// the other way around
-				//compute the weight between web services and user
-				//Edge weight2= network.getLinkBetweenTwoNodes(webService2, user);
-				//weight2.weight= (user.reqResponsetime * webService2.su) / (user.reqSuccessability*webService2.su);
-				
+				network.addUniqueEdge(wsuLink);		
 			}
 		}
 	}
