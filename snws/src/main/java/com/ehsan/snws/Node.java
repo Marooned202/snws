@@ -3,7 +3,8 @@ package com.ehsan.snws;
 public class Node {
 
 	public int id;
-	public String name;    
+	public String name; 
+	public int compCount;
 
 	public Node(int id) {
 		this.id = id;

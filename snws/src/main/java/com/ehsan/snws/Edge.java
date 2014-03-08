@@ -3,10 +3,14 @@ package com.ehsan.snws;
 public class Edge implements Comparable<Edge> {
     
     public Node from, to;
-    public int weight;
+    public double  weight;
     public int type = 0;
     public int interactionCount;
-    
+    //web service - web service link
+    public int wsiCompWsj;
+	public int wsiSubWsj;
+	public int wsjReqSubWsi;
+	
     public Edge(final Node argFrom, final Node argTo){
         from = argFrom;
         to = argTo;
@@ -14,7 +18,7 @@ public class Edge implements Comparable<Edge> {
     }
     
     public int compareTo(final Edge argEdge){
-        return weight - argEdge.weight;
+        return (int) (weight - argEdge.weight);
     }
     
     @Override
