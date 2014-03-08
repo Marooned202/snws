@@ -234,6 +234,82 @@ public class Graph {
 		}
 	}
 	
+	public void printDocFormat (PrintWriter output) {
+		System.out.println("digraph G {");
+		for (Node node: adjacencies.keySet()) {
+			if (node instanceof User) {
+				User user = (User) node;
+				//System.out.println(user);
+				//output.println(user);
+				
+//				System.out.println("subgraph Users {");				
+//				System.out.println("node [style=filled,color=white];");
+//				System.out.println("style=filled;");
+//				System.out.println("color=lightgrey;");
+
+
+				System.out.println("edge [color=brown]");
+				List<Edge> userEdges = getAllLinksToOtherUsers(node);
+				for (Edge edge: userEdges) {
+					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					//System.out.println("\t[U---U] " + edge);
+					//output.println("\t[U---U] " + edge);
+					
+				}
+				
+//				System.out.println("}");
+
+				System.out.println("edge [color=black]");
+				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
+				for (Edge edge: webServiceEdges) {
+					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					//System.out.println("\t[U---W] " + edge);
+					//output.println("\t[U---W] " + edge);
+				}
+			}
+		}
+
+		for (Node node: adjacencies.keySet()) {
+			if (node instanceof WebService) {
+				WebService webService = (WebService) node;
+				//System.out.println(webService);
+				//output.println(webService);
+				
+				List<Edge> userEdges = getAllLinksToOtherUsers(node);
+				System.out.println("edge [color=red]");
+				for (Edge edge: userEdges) {
+					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					//System.out.println("\t[W---U] " + edge);
+					//output.println("\t[W---U] " + edge);
+				}
+
+//				System.out.println("subgraph WebServices {");
+				System.out.println("edge [color=blue]");
+				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
+				for (Edge edge: webServiceEdges) {
+					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					//System.out.println("\t[W---W] " + edge);
+					//output.println("\t[W---W] " + edge);
+				}
+//				System.out.println("}");
+				
+				//webService.printHistoryOfUsersService(output);
+			}
+		}
+		
+		for (Node node: adjacencies.keySet()) {
+			if (node instanceof User) {
+				System.out.printf("%d [sides=4,color=lightblue,style=filled];\n", node.id);
+			}
+			if (node instanceof WebService) {
+				System.out.printf("%d [sides=4,color=green,style=filled];\n", node.id);
+			}
+		}
+		
+		
+		System.out.println("}");
+	}
+	
 	public void report () {
 		
 	}
