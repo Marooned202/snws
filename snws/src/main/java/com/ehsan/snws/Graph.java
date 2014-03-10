@@ -318,7 +318,10 @@ public class Graph {
 	
 
 	public void printDocFormat (PrintWriter output) {
+		
 		System.out.println("digraph G {");
+		output.println("digraph G {");
+		
 		for (Node node: adjacencies.keySet()) {
 			if (node instanceof User) {
 				User user = (User) node;
@@ -335,6 +338,7 @@ public class Graph {
 				List<Edge> userEdges = getAllLinksToOtherUsers(node);
 				for (Edge edge: userEdges) {
 					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
+					output.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[U---U] " + edge);
 					//output.println("\t[U---U] " + edge);
 					
@@ -346,6 +350,7 @@ public class Graph {
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
 				for (Edge edge: webServiceEdges) {
 					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
+					output.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[U---W] " + edge);
 					//output.println("\t[U---W] " + edge);
 				}
@@ -362,6 +367,7 @@ public class Graph {
 				//System.out.println("edge [color=red]");
 				for (Edge edge: userEdges) {
 					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
+					output.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[W---U] " + edge);
 					//output.println("\t[W---U] " + edge);
 				}
@@ -371,6 +377,7 @@ public class Graph {
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
 				for (Edge edge: webServiceEdges) {
 					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
+					output.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[W---W] " + edge);
 					//output.println("\t[W---W] " + edge);
 				}
@@ -383,14 +390,17 @@ public class Graph {
 		for (Node node: adjacencies.keySet()) {
 			if (node instanceof User) {
 				System.out.printf("%d [color=lightblue,style=filled];\n", node.id);
+				output.printf("%d [color=lightblue,style=filled];\n", node.id);
 			}
 			if (node instanceof WebService) {
 				System.out.printf("%d [color=blue,style=filled];\n", node.id);
+				output.printf("%d [color=blue,style=filled];\n", node.id);
 			}
 		}
 		
 		
 		System.out.println("}");
+		output.println("}");
 	}
 
 	public void report () {
