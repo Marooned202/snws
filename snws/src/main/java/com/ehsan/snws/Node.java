@@ -5,6 +5,7 @@ public class Node {
 	public int id;
 	public String name; 
 	public int compCount;
+	public int interactionCount;
 
 	public Node(int id) {
 		this.id = id;

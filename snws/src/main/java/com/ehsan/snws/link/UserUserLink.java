@@ -6,7 +6,7 @@ import com.ehsan.snws.User;
 
 public class UserUserLink extends Edge{
 
-
+    
 	public int useriWsUserj;
 	
 	public UserUserLink(Node argFrom, Node argTo) {
