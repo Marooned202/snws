@@ -43,7 +43,7 @@ public class FirstScenario implements Scenario {
     public static float xx=0;
     public static float xxx=0;
     //to switch off the user social network
-    public boolean social= false;
+    public boolean social= true;
     //how many ws for each user
    // public static int wsEdgeCount;
  
