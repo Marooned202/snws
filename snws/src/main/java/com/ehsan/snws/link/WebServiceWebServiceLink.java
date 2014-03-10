@@ -2,18 +2,14 @@ package com.ehsan.snws.link;
 
 import sun.net.NetworkClient;
 
-import com.ehsan.snws.DegreeS;
-import com.ehsan.snws.DegreeC;
+
 import com.ehsan.snws.Edge;
 import com.ehsan.snws.Graph;
 import com.ehsan.snws.Node;
-import com.ehsan.snws.WebService;;
+import com.ehsan.snws.WebService;
+import com.ehsan.snws.util.Functions;
 
 public class WebServiceWebServiceLink extends Edge{
-
-	
-	public DegreeC dc = new DegreeC();
-	public DegreeS ds = new DegreeS();
 	
 	//public int wsiCompWsj;
 	//public int wsiSubWsj;
@@ -27,7 +23,7 @@ public class WebServiceWebServiceLink extends Edge{
 	
 	@Override
 	public String toString () {
-		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dc: " + dc + ", ds: " + ds + ", interactionCount: " + interactionCount +",wsiCompWsj:" + wsiCompWsj;
+		String str = "From Id: " + from.id + ", To Id: " + to.id + ", weight: " + weight + ", dc: " + Functions.degreeC((WebService)from, (WebService)to) + ", ds: " + Functions.degreeS((WebService)from, (WebService) to) + ", interactionCount: " + interactionCount +",wsiCompWsj:" + wsiCompWsj ;
 		return str;
 	}
 

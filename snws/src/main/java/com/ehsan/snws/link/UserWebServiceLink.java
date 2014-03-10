@@ -10,7 +10,7 @@ public class UserWebServiceLink extends Edge{
 	Graph network = new Graph();
 	public double dtr;
 	public double itr;
-	
+	public static int y=0;
 	
 	public UserWebServiceLink(Node argFrom, Node argTo) {
 		super(argFrom, argTo);

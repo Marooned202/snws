@@ -10,6 +10,7 @@ public class Edge implements Comparable<Edge> {
     public int wsiCompWsj;
 	public int wsiSubWsj;
 	public int wsjReqSubWsi;
+	public int edgeCountws;
 	
     public Edge(final Node argFrom, final Node argTo){
         from = argFrom;

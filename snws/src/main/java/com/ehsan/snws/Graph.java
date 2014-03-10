@@ -11,8 +11,13 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Collection;
 
-public class Graph {
+import com.ehsan.snws.FirstScenario;
+import com.ehsan.snws.Edge;
+import com.ehsan.snws.link.UserUserLink;
+import com.ehsan.snws.link.UserWebServiceLink;
 
+public class Graph {
+	public static int wsEdgeCount=0;
 	private Map<Node, List<Edge>> adjacencies = new HashMap<Node, List<Edge>>();
 
 	public void addUniqueEdge(Edge edge) { // Checks if Edge exists will not insert it
@@ -33,6 +38,9 @@ public class Graph {
 		}
 		list.add(edge);
 	}
+
+	
+
 
 	public void addNode(Node node) {
 		if(!adjacencies.containsKey(node)) {
@@ -144,7 +152,18 @@ public class Graph {
 		}
 		return wsList;
 	}
-
+	public List<WebService> getAllWebServicesOfType (int serviceType) {
+		List<WebService> wsList = new ArrayList<WebService>();
+		for (Node node: adjacencies.keySet()) {
+			if (node instanceof WebService) {
+				WebService ws = (WebService) node;
+				if (ws.type == serviceType) {
+					wsList.add((WebService) node);
+				}
+			}
+		}
+		return wsList;
+	}
 	public List<Node> getAllUsers () {
 		List<Node> wsList = new ArrayList<Node>();
 		for (Node node: adjacencies.keySet()) {
@@ -187,23 +206,35 @@ public class Graph {
 	public void print (PrintWriter output) {
 		System.out.println("Users: ");
 		output.println("Users: ");
+
+		int count3=0;
+		
 		for (Node node: adjacencies.keySet()) {
+			
 			if (node instanceof User) {
+			
 				User user = (User) node;
 				System.out.println(user);
 				output.println(user);
 
 				List<Edge> userEdges = getAllLinksToOtherUsers(node);
+				//User.userEdgesCounter = getAllLinksToOtherUsers(node).size();
+				int userUserEdgesNo = getAdjacent(node).size();
 				for (Edge edge: userEdges) {
 					System.out.println("\t[U---U] " + edge);
-					output.println("\t[U---U] " + edge);
+					output.println("\t[U---U] " + edge);	
 				}
-
+				User.userEdgesCounter = getAllLinksToOtherUsers(node).size();
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
+				
 				for (Edge edge: webServiceEdges) {
 					System.out.println("\t[U---W] " + edge);
 					output.println("\t[U---W] " + edge);
+					//wsEdgeCount++;
+					wsEdgeCount=webServiceEdges.size();
 				}
+				//wsEdgeCount= getAllLinksToOtherWebServices(node).size();
+				count3=count3+userUserEdgesNo;
 			}
 		}
 
@@ -211,28 +242,80 @@ public class Graph {
 		System.out.println("Web Services: ");
 		output.println("");
 		output.println("Web Services: ");
+		
+		int count1=0;
+		int count2=0;
+		
+		
 		for (Node node: adjacencies.keySet()) {
 			if (node instanceof WebService) {
+		
 				WebService webService = (WebService) node;
 				System.out.println(webService);
 				output.println(webService);
 				
 				List<Edge> userEdges = getAllLinksToOtherUsers(node);
+				int wsUserEdgesNo = getAllLinksToOtherUsers(node).size();
+               
 				for (Edge edge: userEdges) {
-					System.out.println("\t[W---U] " + edge);
+					System.out.println("\t [W---U] "+ edge);
 					output.println("\t[W---U] " + edge);
 				}
 
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
+				int wsWsEdgesNo = getAllLinksToOtherWebServices(node).size();
+				
+				
 				for (Edge edge: webServiceEdges) {
-					System.out.println("\t[W---W] " + edge);
-					output.println("\t[W---W] " + edge);
+					System.out.println("\t [W---W] " + edge);
+					output.println("\t [W---W] " + edge);
 				}
+				//wsEdgeCount= wsUserEdgesNo;
+				//counters for the total number of edges
+				count1=count1+wsWsEdgesNo;
+				count2=count2+wsUserEdgesNo;
+				
 				
 				webService.printHistoryOfUsersService(output);
+				//System.out.println("\t [W---U] "+ wsUserEdgesNo);
+				//System.out.println("----------------------------------------\t");
+				//output.println("\t[W---U] " + wsUserEdgesNo);
+				//output.println("----------------------------------------\t");
 			}
+			
 		}
+		int x= count1;
+		int xx= count3 - count2;
+		
+		int wsWs= (int) (x-FirstScenario.xxx);
+		int Uws = (int) (count2-FirstScenario.initialWsUserEdgeNo);
+		int uU  = (int) (xx - FirstScenario.initialUserUserEdgeNo);
+		
+	 //
+		
+		//output for ws--ws	
+		System.out.println("----------------------------------------\t");
+		System.out.println("\t no. Intitial [W---W]"+ FirstScenario.xxx);
+		output.println("\t no. Intitial [W---W]"+ FirstScenario.xxx);
+		System.out.println("\t no.new [W---W]" + x/2);
+		output.println("\t no.new [W---W]" + x/2);
+
+		//out put for ws--u
+		System.out.println("----------------------------------------\t");
+		System.out.println("\t no. Intitial [W---U]"+ FirstScenario.initialWsUserEdgeNo);
+		output.println("\t no. Intitial [W---U]"+ FirstScenario.initialWsUserEdgeNo);
+		System.out.println("\t no. new [W---U]"+Uws);
+		output.println("\t no. new [W---U]" + Uws);
+		
+		
+		//out put for u--u
+		System.out.println("----------------------------------------\t");
+		System.out.println("\t no. Intitial [U---U]"+ FirstScenario.initialUserUserEdgeNo);
+		output.println("\t no. Intitial [U---U]"+ FirstScenario.initialUserUserEdgeNo);
+		System.out.println("\t no.new [U---U]"+ xx);
+		output.println("\t no. new [U---U]"+ xx);
 	}
+	
 	
 	public void report () {
 		
