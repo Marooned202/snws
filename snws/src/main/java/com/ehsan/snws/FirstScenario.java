@@ -52,11 +52,22 @@ public class FirstScenario implements Scenario {
 
 		File file = new File("output-"+new java.util.Date().getTime()+".txt");  
 		FileWriter writer;
+		
+		File filebefore = new File("c:\\ex\\sc1.txt");  
+		FileWriter writerbefore;
+		File fileafter = new File("c:\\ex\\sc2.txt");  
+		FileWriter writerafter;
 
 		try {
 			writer = new FileWriter(file, true);
+			
+			writerafter = new FileWriter(filebefore, true);
+			writerbefore = new FileWriter(fileafter, true);
 
 			PrintWriter output = new PrintWriter(writer);  		 
+			
+			PrintWriter outputafter = new PrintWriter(writerafter);  
+			PrintWriter outputbefore = new PrintWriter(writerbefore);
 
 			initializeNodes();
 			initializeConnections();
@@ -64,7 +75,7 @@ public class FirstScenario implements Scenario {
 			//network.addEdge(source, target, weight);
 
 			//network.print(output);
-			network.printDocFormat(output);
+			network.printDocFormat(outputbefore);
 			Random rnd = new Random();
 
 			for (int i = 0; i < INTERATION_NUM; i++) {		
@@ -92,9 +103,11 @@ public class FirstScenario implements Scenario {
 			}
 
 			//network.print(output);
-			network.printDocFormat(output);
+			network.printDocFormat(outputafter);
 
 			output.close();
+			outputbefore.close();
+			outputafter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
