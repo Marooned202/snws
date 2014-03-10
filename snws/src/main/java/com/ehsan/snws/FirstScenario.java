@@ -20,11 +20,13 @@ public class FirstScenario implements Scenario {
 
 	Graph network = new Graph();
 
+
 	public final static int INTERATION_NUM =100;
 	public final static int USER_NUM =100;
 	public final static int WEB_SERVICE_NUM =100;
+
 	public final static int WEB_SERVICE_TYPES = 2;
-	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 2;
+	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 3;
 
 	public final static int INITIAL_USER_WEBSERVICE_CONNECTION_CHANCE = 30;
 	public final static int INITIAL_WEBSERVICE_WEBSERVICE_CONNECTION_CHANCE = 30;
@@ -105,7 +107,9 @@ public class FirstScenario implements Scenario {
 			ArrayList <WebService> webServices = network.getAllWebServicesUserServiceType (user, serviceType);
 			if (!webServices.isEmpty()) { // Found a web service proding service "serviceType"
 				Collections.sort(webServices, new WebServiceQoSComparator()); // Choosing the one with highest QoS
-                found = true;
+
+				found = true;
+
 				WebService bestWebservice = webServices.get(0);
 
 				System.out.println("Found WS1: " + bestWebservice );
@@ -120,11 +124,13 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				network.addUniqueEdge(uwsLink);
+
 				//wsEdgeCount++;
 				 
 				WsUserEdgeNo++;
 				
 				
+
 				WebServiceUserLink wsuLink = new WebServiceUserLink(bestWebservice, user);
 				// Add properties to link if needed here
 				// wsEdgeCount++;
@@ -138,6 +144,7 @@ public class FirstScenario implements Scenario {
 				link.interactionCount++;
 				Edge link2 = network.getLinkBetweenTwoNodes(bestWebservice, user);
 				link2.interactionCount++;
+
                 
 				//compute the weight between web services and user
 
@@ -247,17 +254,17 @@ public class FirstScenario implements Scenario {
 		if(social){
 		for (WebService webService1: bestWebServices) {
 			for (WebService webService2: bestWebServices) {
+
 				if (webService1.equals(webService2)) continue; 
 				
 				// We do not link webservices to same webservices
+
 				WebServiceWebServiceLink wswsLink = new WebServiceWebServiceLink(webService1, webService2);
 				
 				// Add properties to link if needed here
-				if(!(webService1.type == webService2.type))
-				{
-				 webService1.compCount++;
-				 webService2.compCount++;
-				}
+				// ...
+				// ...
+				// ...
 				network.addUniqueEdge(wswsLink);
 				
 				xx++;
@@ -268,6 +275,7 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				network.addUniqueEdge(wswsLink2);
+
 				xx++;
 			
 				
@@ -288,6 +296,7 @@ public class FirstScenario implements Scenario {
 				}
 				
 			}
+
 		}
 		}
 	      
@@ -334,6 +343,7 @@ public class FirstScenario implements Scenario {
 				// ...
 				// ...
 				// ...
+
 				network.addUniqueEdge(wsuLink);	
 				//WsUserEdgeNo++;
 
@@ -343,6 +353,7 @@ public class FirstScenario implements Scenario {
 				
 		// add to the history 
 		ws.addUserToHistory(user, serviceType);
+
 		}
 		}
 		return found;
