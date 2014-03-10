@@ -43,7 +43,8 @@ public class FirstScenario implements Scenario {
 
 			//network.addEdge(source, target, weight);
 
-			network.print(output);
+			//network.print(output);
+			network.printDocFormat(output);
 			Random rnd = new Random();
 
 			for (int i = 0; i < INTERATION_NUM; i++) {		
@@ -70,7 +71,8 @@ public class FirstScenario implements Scenario {
 				}
 			}
 
-			network.print(output);
+			//network.print(output);
+			network.printDocFormat(output);
 
 			output.close();
 		} catch (IOException e) {

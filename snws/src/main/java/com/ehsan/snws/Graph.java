@@ -248,10 +248,10 @@ public class Graph {
 //				System.out.println("color=lightgrey;");
 
 
-				System.out.println("edge [color=brown]");
+				//System.out.println("edge [color=brown]");
 				List<Edge> userEdges = getAllLinksToOtherUsers(node);
 				for (Edge edge: userEdges) {
-					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[U---U] " + edge);
 					//output.println("\t[U---U] " + edge);
 					
@@ -259,10 +259,10 @@ public class Graph {
 				
 //				System.out.println("}");
 
-				System.out.println("edge [color=black]");
+				//System.out.println("edge [color=black]");
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
 				for (Edge edge: webServiceEdges) {
-					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[U---W] " + edge);
 					//output.println("\t[U---W] " + edge);
 				}
@@ -276,18 +276,18 @@ public class Graph {
 				//output.println(webService);
 				
 				List<Edge> userEdges = getAllLinksToOtherUsers(node);
-				System.out.println("edge [color=red]");
+				//System.out.println("edge [color=red]");
 				for (Edge edge: userEdges) {
-					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[W---U] " + edge);
 					//output.println("\t[W---U] " + edge);
 				}
 
 //				System.out.println("subgraph WebServices {");
-				System.out.println("edge [color=blue]");
+				//System.out.println("edge [color=blue]");
 				List<Edge> webServiceEdges = getAllLinksToOtherWebServices(node);
 				for (Edge edge: webServiceEdges) {
-					System.out.println(" " + edge.from.id + "->" + edge.to.id + " [style=bold];");
+					System.out.println(" " + edge.from.id + "->" + edge.to.id);// + " [style=bold];");
 					//System.out.println("\t[W---W] " + edge);
 					//output.println("\t[W---W] " + edge);
 				}
@@ -299,10 +299,10 @@ public class Graph {
 		
 		for (Node node: adjacencies.keySet()) {
 			if (node instanceof User) {
-				System.out.printf("%d [sides=4,color=lightblue,style=filled];\n", node.id);
+				System.out.printf("%d [color=lightblue,style=filled];\n", node.id);
 			}
 			if (node instanceof WebService) {
-				System.out.printf("%d [sides=4,color=green,style=filled];\n", node.id);
+				System.out.printf("%d [color=blue,style=filled];\n", node.id);
 			}
 		}
 		
