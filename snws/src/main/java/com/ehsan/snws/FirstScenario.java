@@ -54,21 +54,21 @@ public class FirstScenario implements Scenario {
 		File file = new File("output-"+new java.util.Date().getTime()+".txt");  
 		FileWriter writer;
 
-		File filebefore = new File("c:\\ex\\sc1.txt");  
-		FileWriter writerbefore;
-		File fileafter = new File("c:\\ex\\sc2.txt");  
-		FileWriter writerafter;
+//		File filebefore = new File("c:\\ex\\sc1.txt");  
+//		FileWriter writerbefore;
+//		File fileafter = new File("c:\\ex\\sc2.txt");  
+//		FileWriter writerafter;
 
 		try {
 			writer = new FileWriter(file, true);
 
-			writerafter = new FileWriter(fileafter, true);
-			writerbefore = new FileWriter(filebefore, true);
+//			writerafter = new FileWriter(fileafter, true);
+//			writerbefore = new FileWriter(filebefore, true);
 
 			PrintWriter output = new PrintWriter(writer);  		 
 
-			PrintWriter outputafter = new PrintWriter(writerafter);  
-			PrintWriter outputbefore = new PrintWriter(writerbefore);
+//			PrintWriter outputafter = new PrintWriter(writerafter);  
+//			PrintWriter outputbefore = new PrintWriter(writerbefore);
 
 			initializeNodes();
 			initializeConnections();
@@ -107,8 +107,8 @@ public class FirstScenario implements Scenario {
 			//network.printDocFormat(outputafter);
 
 			output.close();
-			outputbefore.close();
-			outputafter.close();
+//			outputbefore.close();
+//			outputafter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
