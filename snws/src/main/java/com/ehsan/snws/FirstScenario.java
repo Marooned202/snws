@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -21,13 +20,13 @@ public class FirstScenario implements Scenario {
 	Graph network = new Graph();
 
 
-	public final static int INTERATION_NUM =100;
-	public final static int USER_NUM =15;
-	public final static int WEB_SERVICE_NUM =15;
+	public final static int INTERATION_NUM =14;
+	public final static int USER_NUM =100;
+	public final static int WEB_SERVICE_NUM =100;
 
 
 	public final static int WEB_SERVICE_TYPES = 2;
-	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 3;
+	public final static int NUMBER_OF_SERVICES_PERFORMED_TO_GET_INTRODUCED = 2;
 
 	public final static int INITIAL_USER_WEBSERVICE_CONNECTION_CHANCE = 30;
 	public final static int INITIAL_WEBSERVICE_WEBSERVICE_CONNECTION_CHANCE = 30;
@@ -188,7 +187,7 @@ public class FirstScenario implements Scenario {
 			} 
 			if (!found) { // if no webservice arround the user can do that job
 				found = recommendWebserviceProvidngServiceType (user, serviceType, output); // Webservices around User will try to find web services proving the required service type
-				/*if (!found) {
+				if (!found) {
 
 						Random rnd= new Random();
 						int size = network.getAllWebServicesOfType(serviceType).size();
@@ -211,13 +210,13 @@ public class FirstScenario implements Scenario {
 						ws.addUserToHistory(user, serviceType);
 						//add to list of best web services
 						bestWebServices.add(ws);
-				}*/
+				}
 			}
 		}
 		//linedws
 
 
-		if (!social){
+		
 			for (WebService ws1: bestWebServices) {
 				for (WebService ws2: bestWebServices) {
 					if (Functions.degreeC(ws1,ws2) > 0.6){
@@ -263,11 +262,11 @@ public class FirstScenario implements Scenario {
 					}
 				}
 			}
-		}
+		
 
 
 		// Connecting bestWebservices together (the webservice who did the job)
-		if(social){
+		
 			for (WebService webService1: bestWebServices) {
 				for (WebService webService2: bestWebServices) {
 
@@ -318,7 +317,7 @@ public class FirstScenario implements Scenario {
 
 
 
-	}
+	
 
 	private boolean recommendWebserviceProvidngServiceType(User user, Integer serviceType, PrintWriter output) {
 
@@ -440,10 +439,10 @@ public class FirstScenario implements Scenario {
 			if(!found){
 				recommendWebserviceProvidngServiceType (user, serviceType, output); // Webservices around User will try to find web services proving the required service type
 
-				/*if (!found){
-				// Random rnd= new Random();
-				//int size = network.getAllWebServicesOfType(serviceType).size();
-				//	Node ws = (WebService) network.getAllWebServicesOfType(serviceType).get(rnd.nextInt(size));
+				if (!found){
+				Random rnd= new Random();
+				int size = network.getAllWebServicesOfType(serviceType).size();
+				 //Node ws = (WebService) network.getAllWebServicesOfType(serviceType).get(rnd.nextInt(size));
 
 				List<WebService>   WSList = network.getAllWebServicesOfType(serviceType);
 				Collections.sort(WSList, new WebServiceQoSComparator());
@@ -464,7 +463,7 @@ public class FirstScenario implements Scenario {
 				 //add to history
 				 ws.addUserToHistory(user, serviceType);
 
-			 }*/
+			 }
 
 			}
 		}
